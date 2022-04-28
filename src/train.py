@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn import preprocessing
 from sklearn import ensemble
+from sklearn import metrics
 
 
 TRAINING_DATA = os.environ.get('TRAINING_DATA')
@@ -39,7 +40,8 @@ if __name__ == '__main__':
         label_encoders.append((c, lbl))
     
 
-    clf = ensemble.RandomForestClassifier(n_jobs=-1, verbose=2)
+    clf = ensemble.RandomForestClassifier(n_estimators=200, n_jobs=-1, verbose=2)
     clf.fit(train_df, ytrain)
     preds = clf.predict_proba(valid_df)[:, 1]
-    print(preds)
+    score = metrics.roc_auc_score(yvalid, preds)
+    print(f'AUC: {score}')
