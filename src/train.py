@@ -43,7 +43,7 @@ if __name__ == '__main__':
         label_encoders.append((c, lbl))
     
 
-    clf = dispatcher.MODELS['MODEL']
+    clf = dispatcher.MODELS[MODEL]
     clf.fit(train_df, ytrain)
     preds = clf.predict_proba(valid_df)[:, 1]
     score = metrics.roc_auc_score(yvalid, preds)
