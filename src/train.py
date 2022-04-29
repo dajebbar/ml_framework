@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn import preprocessing
 from sklearn import ensemble
 from sklearn import metrics
+import joblib
 
 from . import dispatcher
 
@@ -47,3 +48,7 @@ if __name__ == '__main__':
     preds = clf.predict_proba(valid_df)[:, 1]
     score = metrics.roc_auc_score(yvalid, preds)
     print(f'AUC: {score}')
+
+
+    joblib.dump(label_encoders, f'models/{MODEL}_label_encoder.pkl')
+    joblib.dump(clf, f'models/{MODEL}.pkl')
